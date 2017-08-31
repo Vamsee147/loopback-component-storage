@@ -37,6 +37,17 @@ describe('FileSystem based storage provider', function() {
         process.nextTick(done);
       }
     });
+    
+    it('should create root directory when createDirectory flag is true', function(done) {
+      client = new FileSystemProvider({root: path.join(__dirname, 'testDir'), createDirectory: true});
+      fs.stat(path.join(__dirname, 'testDir'), function(err, stats) {
+        if (err) {
+          done(err);
+        } else {
+          process.nextTick(done);
+        }
+      });
+    });
 
     it('should return an empty list of containers', function(done) {
       client.getContainers(function(err, containers) {
